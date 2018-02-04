@@ -9,8 +9,8 @@ toc_footers:
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
 
 includes:
-  - sensor_identifiers
   - errors
+  - sensor_identifiers
 
 search: true
 ---
@@ -32,12 +32,12 @@ curl "https://demo.watereen.com/api/endpoint" \
   -H "Authorization: Bearer mytoken"
 ```
 
-> Make sure to replace `mytoken` with your JWT. The ending back-slash means that there is no newline
+> Make sure to replace `mytoken` with your JWT.
 
 The Watereen gateway API uses JWT (JSON Web Token) to allow access to the API. To get a JWT, you first need to login with your credentials as explained in the following subsection.
 If you don't have a Watereen account, you can request one for testing purposes by contacting us.
 
-Once you are logged in and for each subsequent API request, you need to include the JWT in a header that looks like the following:<br/>
+Once you are logged in and for each subsequent API request, you need to include the JWT in a header that looks like the following:
 `Authorization: Bearer mytoken`
 
 <aside class="notice">
@@ -228,6 +228,8 @@ curl "https://demo.watereen.com/api/sensors" \
   -H "Authorization: Bearer mytoken"
 ```
 
+> The above command returns JSON structured like this:
+
 ```json
 [
   {
@@ -259,10 +261,12 @@ name          | string    | Registered name of the sensor
 battery       | number    | Sensor battery voltage (V)
 packet_lost   | number    | Number of radio packet lost by this sensor
 
-## Gather sensors data
+## Gather the sensors data
+
+> The -g Curl option is necessary when the URL includes square brackets
 
 ```shell
-curl "https://demo.watereen.com/api/data?date[gt]=2018-02-04T12:00:00.000Z&date[lt]=2018-02-04T13:29:00.000Z" \
+curl -g "https://demo.watereen.com/api/data?date[gt]=2018-02-04T12:00:00.000Z&date[lt]=2018-02-04T13:29:00.000Z" \
   -H "Authorization: Bearer mytoken"
 ```
 
