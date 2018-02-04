@@ -315,7 +315,9 @@ Parameter | Type | Description
 node_id | number | Unique sensor identifier which send these measurements
 date | date | Measurements date in ISO 8601 format
 packet_informations | object | Contains all radio-specific informations
-&nbsp;&nbsp;Parameter | Type | Description
-&nbsp;&nbsp;--------- | ---- | -----------
-&nbsp;&nbsp;node_id | number | Unique sensor identifier which send these measurements
-&nbsp;&nbsp;date | date | Measurements date in ISO 8601 format
+&nbsp;&nbsp;&nbsp;&nbsp;rssi | &nbsp;&nbsp;&nbsp;&nbsp;number | &nbsp;&nbsp;&nbsp;&nbsp;Received Signal Strength Indication
+&nbsp;&nbsp;&nbsp;&nbsp;snr | &nbsp;&nbsp;&nbsp;&nbsp;number | &nbsp;&nbsp;&nbsp;&nbsp;Signal-to-Noise Ratio
+&nbsp;&nbsp;&nbsp;&nbsp;packet_loss | &nbsp;&nbsp;&nbsp;&nbsp;number | &nbsp;&nbsp;&nbsp;&nbsp;Packet(s) lost before this one
+measurements | array | Contains the value measured by each physical sensor
+&nbsp;&nbsp;&nbsp;&nbsp;sensor_identifier | &nbsp;&nbsp;&nbsp;&nbsp;number | &nbsp;&nbsp;&nbsp;&nbsp;Physical sensor identifier
+&nbsp;&nbsp;&nbsp;&nbsp;value | &nbsp;&nbsp;&nbsp;&nbsp;number | &nbsp;&nbsp;&nbsp;&nbsp;Value measured
