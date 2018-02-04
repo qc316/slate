@@ -190,7 +190,7 @@ A delay of ~1 minute before the Wifi network is accessible may be observable aft
 
 `POST https://demo.watereen.com/api/switch_to_ap - 204 OK No Content`
 
-## Switch to LAN Wifi mode
+## Switch to Wifi mode (LAN)
 
 ```shell
 curl "https://demo.watereen.com/api/switch_to_wifi" \
@@ -222,19 +222,24 @@ password | string | Its associated key/password
 
 ## Retrieve the sensors
 
+```shell
+curl "https://demo.watereen.com/api/sensors" \
+  -H "Authorization: Bearer mytoken"
+```
+
 ```json
 [
   {
+    "id" : 2,
     "name" : "Wheat field",
     "battery" : 3.5,
-    "packet_lost" : 0,
-    "id" : 2
+    "packet_lost" : 0
   },
   {
+    "id" : 3,
     "name" : "Barley field 2",
     "battery" : 3.6,
-    "packet_lost" : 0,"
-    id" : 3
+    "packet_lost" : 0
   }
 ]
 ```
@@ -254,6 +259,11 @@ battery | number | Sensor battery voltage (V)
 packet_lost | number | Number of radio packet lost by this sensor
 
 ## Gather sensors data
+
+```shell
+curl "https://demo.watereen.com/api/data?date[gt]=2018-02-04T12:00:00.000Z&date[lt]=2018-02-04T13:29:00.000Z" \
+  -H "Authorization: Bearer mytoken"
+```
 
 > The above command returns JSON structured like this:
 
@@ -325,7 +335,7 @@ measurements | array | Contains the value measured by each physical sensor
 ### URL Parameters
 Parameter | Default | Description
 --------- | ------- | -----------
-SENSOR_ID | None | Set a specific sensor identifier
+SENSOR_ID - Optional | None | Set a specific sensor identifier
 
 ### Query Parameters
 Parameter | Default | Description
