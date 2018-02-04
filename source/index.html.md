@@ -19,7 +19,7 @@ search: true
 Welcome to the Watereen API documentation page ! You can use our API to access Watereen gateway API endpoints, which can get information on the network status and all the sensors related data.
 You can view Curl the code example related to each endpoint in the dark area to the right, so you just have to copy-paste the command in a terminal to test it.
 
-Please free to contact us for any information you may need at [Support](quentin@watereen.com)
+Please free to contact us for any information you may need at [Support](mailto:quentin@watereen.com)
 
 # Authentication
 
@@ -46,8 +46,6 @@ You must replace <code>mytoken</code> with your personal JWT.
 <aside class="warning">
 The JWT issued by the server is only valid during 30 minutes. After this period, you need to log in again
 </aside>
-
-# Login
 
 ## Get a JSON Web Token (JWT)
 
@@ -95,6 +93,7 @@ last_name | string | Last name
 jwt | string | Token, valid for the next 30 minutes
 valid | boolean | Indicates if the authentication succeeded
 
+# Gateway configuration
 
 ## Get gateway informations
 
@@ -218,6 +217,8 @@ Parameter | Type | Description
 --------- | ---- | -----------
 ssid | string | SSID of the targeted Wifi network
 password | string | Its associated key/password
+
+# Sensors and data
 
 ## Retrieve the sensors
 
