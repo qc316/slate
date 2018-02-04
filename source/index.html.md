@@ -22,7 +22,7 @@ You can view the Curl code example related to each endpoint in the dark area to 
 
 Please free to contact us for any information you may need by sending us an [email](mailto:quentin@watereen.com).
 
-# Authentication
+# Authentification
 
 > Once logged in, use this code to authorize:
 
