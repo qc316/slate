@@ -17,9 +17,9 @@ search: true
 # Introduction
 
 Welcome to the Watereen API documentation page ! You can use our API to access Watereen gateway API endpoints, which can get information on the network status and all the sensors related data.
-You can view Curl the code example related to each endpoint in the dark area to the right, so you just have to copy-paste the command in a terminal to test it.
+You can view the Curl code example related to each endpoint in the dark area to the right, you just have to copy-paste the command in a bash terminal to test it.
 
-Please free to contact us for any information you may need at [Support](mailto:quentin@watereen.com)
+Please free to contact us for any information you may need by sending us an [email](mailto:quentin@watereen.com)
 
 # Authentication
 
@@ -33,10 +33,10 @@ curl "https://demo.watereen.com/api/endpoint" \
 
 > Make sure to replace `mytoken` with your JWT. The ending back-slash means that there is no newline
 
-The Watereen gateway API uses JWT (JSON Web Token) to allow access to the API. To get a JWT, you need to login first with your credentials as explained in the following section.
+The Watereen gateway API uses JWT (JSON Web Token) to allow access to the API. To get a JWT, you first need to login with your credentials as explained in the following subsection.
 If you don't have a Watereen account, you can request one for testing purposes by contacting us.
 
-Once you are logged in, for each subsequent API request, you need to include the JWT in a header that looks like the following:
+Once you are logged in and for each subsequent API request, you need to include the JWT in a header that looks like the following:
 `Authorization: Bearer mytoken`
 
 <aside class="notice">
@@ -44,7 +44,7 @@ You must replace <code>mytoken</code> with your personal JWT.
 </aside>
 
 <aside class="warning">
-The JWT issued by the server is only valid during 30 minutes. After this period, you need to log in again
+The JWT issued by the server is only valid during 30 minutes. After this period, you will need to log in again
 </aside>
 
 ## Get a JSON Web Token (JWT)
@@ -82,7 +82,7 @@ email | string | Email associated to your Watereen account
 password | string | Account password
 
 <aside class="warning">
-Be sure to set the <code>Content-Type</code> header to <code>application/json</code>
+Be sure to set the <code>Content-Type</code> header to <code>application/json</code> for every POST request
 </aside>
 
 ### Response Parameters
@@ -115,7 +115,7 @@ curl "https://demo.watereen.com/api/gateway_informations" \
 }
 ```
 
-This endpoint returns technical informations and status of the gateway.
+This endpoint returns technical informations and the status of the gateway.
 
 ### HTTP Request
 
@@ -125,7 +125,7 @@ This endpoint returns technical informations and status of the gateway.
 Parameter | Type | Description
 --------- | ---- | -----------
 appkey | string | Watereen radio application key - A unique gateway ID
-isApMode | boolean | Indicates if the gateway is in Access-Point mode (has its own Wifi network), or is connected to a local network
+isApMode | boolean | Indicates if the gateway is in Access-Point mode (share its own Wifi network), or is connected to a local network
 connectedInterface | string | Name of the network interface in use. `wlan0` means a Wifi connection, `eth0` an ethernet connection
 routerIp | string | IP address of the local network router
 routerAccessible | boolean | Indicates if the LAN router is turned on
@@ -157,7 +157,7 @@ curl "https://demo.watereen.com/api/networks_list" \
 ]
 ```
 
-This endpoint returns all the Wifi networks that the gateway detects and their associated technial informations
+This endpoint returns all the Wifi networks that the gateway detects and their associated technical informations.
 
 ### HTTP Request
 
@@ -182,13 +182,13 @@ curl "https://demo.watereen.com/api/switch_to_ap" -X POST \
 
 This endpoint will switch the gateway in Access-Point mode. If it was connected to a LAN network, the connection will be lost and an access point with the SSID `Watereen gateway` will be turned on. You will need to connect to this network with your client to continue with the API.
 
-<aside class="notice">
-A delay of ~1 minute before the Wifi network is accessible may be observable after the server response.
-</aside>
-
 ### HTTP Request
 
 `POST https://demo.watereen.com/api/switch_to_ap - 204 OK No Content`
+
+<aside class="notice">
+A delay of ~1 minute before the Wifi network is accessible may be observable after the server response.
+</aside>
 
 ## Switch to Wifi mode (LAN)
 
@@ -203,10 +203,6 @@ curl "https://demo.watereen.com/api/switch_to_wifi" \
 
 This endpoint will ask the gateway to connect to the provided network. If the operation fails, the gateway will automatically switch back to the AP mode.
 
-<aside class="warning">
-Ensure that you will be able to find the DHCP given IP address of the gateway on the local network or you may have difficulty to recover an access.
-</aside>
-
 ### HTTP Request
 
 `POST https://demo.watereen.com/api/switch_to_wifi - 204 OK No Content`
@@ -217,6 +213,10 @@ Parameter | Type | Description
 --------- | ---- | -----------
 ssid | string | SSID of the targeted Wifi network
 password | string | Its associated key/password
+
+<aside class="warning">
+Ensure that you will be able to find the DHCP given IP address of the gateway on the local network or you may have difficulty to recover an access.
+</aside>
 
 # Sensors and data
 
@@ -244,7 +244,7 @@ curl "https://demo.watereen.com/api/sensors" \
 ]
 ```
 
-This endpoint returns all the Wifi networks that the gateway detects and their associated technical informations.
+This endpoint returns all the Wifi networks that the gateway detects and their technical informations.
 
 ### HTTP Request
 
@@ -253,7 +253,7 @@ This endpoint returns all the Wifi networks that the gateway detects and their a
 ### Response Parameters - Array
 Parameter | Type | Description
 --------- | ---- | -----------
-id | number | Unique sensor identifier
+id | number | Unique node identifier
 name | string | Registered name of the sensor
 battery | number | Sensor battery voltage (V)
 packet_lost | number | Number of radio packet lost by this sensor
@@ -313,7 +313,7 @@ curl "https://demo.watereen.com/api/data?date[gt]=2018-02-04T12:00:00.000Z&date[
 ]
 ```
 
-This endpoint returns the data collected by the sensors. You can specify a sensor id as well as a date range. By default, it will return every sensor measurements received between now and the last day (H-24).
+This endpoint returns the data collected by the sensors. You can specify a sensor id as well as a date range. By default, it will return every sensor measurements received in the last day (Now - 24h).
 
 ### HTTP Request
 
@@ -322,23 +322,30 @@ This endpoint returns the data collected by the sensors. You can specify a senso
 ### Response Parameters - Array
 Parameter | Type | Description
 --------- | ---- | -----------
-node_id | number | Unique sensor identifier which send these measurements
+node_id | number | Unique node identifier identifying the source of these measurements
 date | date | Measurements date in ISO 8601 format
 packet_informations | object | Contains all radio-specific informations
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rssi | number | Received Signal Strength Indication
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;snr | number | Signal-to-Noise Ratio
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packet_loss | number | Packet(s) lost before this one
 measurements | array | Contains the value measured by each physical sensor
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sensor_identifier | number | Physical sensor identifier
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sensor_identifier | number | [Physical sensor identifier]("#physical_sensor_identifier")
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value | number | Value measured
 
 ### URL Parameters
 Parameter | Default | Description
 --------- | ------- | -----------
-SENSOR_ID - Optional | None | Set a specific sensor identifier
+SENSOR_ID - Optional | None | Set a specific node identifier
 
 ### Query Parameters
 Parameter | Default | Description
 --------- | ------- | -----------
 date[gt] | Now - 24 Hours | Only data received after this date are returned (ISO 8601)
 date[lt] | Now | Only data received before this date are returned (ISO 8601)
+
+# Physical Sensor Identifier
+A node supports various and multiple soil sensors which are identified by a number. For simplicity, the battery level is denoted as a sensor and is send once a day by each sensor.
+
+<aside class="notice">
+The battery field may not be populated on this demonstration API
+<aside>

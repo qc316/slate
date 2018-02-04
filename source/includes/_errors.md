@@ -12,5 +12,5 @@ Error Code | Meaning
 503 | Service Unavailable, please try again later or contact us.
 
 <aside class="notice">
-If you received a 401 error code, you just have to log in again to get a valid JWT
+If you received a 401 error code, you just have to log in again to get a new valid JWT
 </aside>
