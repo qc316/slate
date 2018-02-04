@@ -76,22 +76,22 @@ This endpoint authenticates the user and returns back the JWT.
 
 ### POST Parameters
 
-Parameter | Type | Description
---------- | ---- | -----------
-email | string | Email associated to your Watereen account
-password | string | Account password
+Parameter | Type    | Description
+--------- | ------- | -----------
+email     | string  | Email associated to your Watereen account
+password  | string  | Account password
 
 <aside class="warning">
 Be sure to set the <code>Content-Type</code> header to <code>application/json</code> for every POST request
 </aside>
 
 ### Response Parameters
-Parameter | Type | Description
---------- | ---- | -----------
-first_name | string | First name as registered in your Watereen account
-last_name | string | Last name
-jwt | string | Token, valid for the next 30 minutes
-valid | boolean | Indicates if the authentication succeeded
+Parameter   | Type    | Description
+----------- | ------- | -----------
+first_name  | string  | First name as registered in your Watereen account
+last_name   | string  | Last name
+jwt         | string  | Token, valid for the next 30 minutes
+valid       | boolean | Indicates if the authentication succeeded
 
 # Gateway configuration
 
@@ -122,14 +122,14 @@ This endpoint returns technical informations and the status of the gateway.
 `GET https://demo.watereen.com/api/gateway_informations - 200 OK`
 
 ### Response Parameters
-Parameter | Type | Description
---------- | ---- | -----------
-appkey | string | Watereen radio application key - A unique gateway ID
-isApMode | boolean | Indicates if the gateway is in Access-Point mode (share its own Wifi network), or is connected to a local network
-connectedInterface | string | Name of the network interface in use. `wlan0` means a Wifi connection, `eth0` an ethernet connection
-routerIp | string | IP address of the local network router
-routerAccessible | boolean | Indicates if the LAN router is turned on
-internetAccessible | boolean | Indicates if the gateway has an internet access
+Parameter           | Type      | Description
+------------------- | --------- | -----------
+appkey              | string    | Watereen radio application key - A unique gateway ID
+isApMode            | boolean   | Indicates if the gateway is in Access-Point mode (share its own Wifi network), or is connected to a local network
+connectedInterface  | string    | Name of the network interface in use. `wlan0` means a Wifi connection, `eth0` an ethernet connection
+routerIp            | string    | IP address of the local network router
+routerAccessible    | boolean   | Indicates if the LAN router is turned on
+internetAccessible  | boolean   | Indicates if the gateway has an internet access
 
 ## Get the nearby Wifi networks list
 
@@ -164,12 +164,12 @@ This endpoint returns all the Wifi networks that the gateway detects and their a
 `GET https://demo.watereen.com/api/networks_list - 200 OK`
 
 ### Response Parameters - Array
-Parameter | Type | Description
---------- | ---- | -----------
-ssid | string | Network SSID
-power | string | WiFi signal strength in dBm
-encryption | string | Encryption method
-power_percentage | number | Estimated power in percentage - 0 means a very weak signal, 100 a strong one
+Parameter         | Type    | Description
+----------------- | ------- | -----------
+ssid              | string  | Network SSID
+power             | string  | WiFi signal strength in dBm
+encryption        | string  | Encryption method
+power_percentage  | number  | Estimated power in percentage - 0 means a very weak signal, 100 a strong one
 
 ## Switch to Access-Point mode
 
@@ -209,10 +209,10 @@ This endpoint will ask the gateway to connect to the provided network. If the op
 
 ### POST Parameters
 
-Parameter | Type | Description
---------- | ---- | -----------
-ssid | string | SSID of the targeted Wifi network
-password | string | Its associated key/password
+Parameter     | Type    | Description
+------------- | ------- | -----------
+ssid          | string  | SSID of the targeted Wifi network
+password      | string  | Its associated key/password
 
 <aside class="warning">
 Ensure that you will be able to find the DHCP given IP address of the gateway on the local network or you may have difficulty to recover an access.
@@ -251,12 +251,12 @@ This endpoint returns all the Wifi networks that the gateway detects and their t
 `GET https://demo.watereen.com/api/sensors - 200 OK`
 
 ### Response Parameters - Array
-Parameter | Type | Description
---------- | ---- | -----------
-id | number | Unique node identifier
-name | string | Registered name of the sensor
-battery | number | Sensor battery voltage (V)
-packet_lost | number | Number of radio packet lost by this sensor
+Parameter     | Type      | Description
+------------- | --------- | -----------
+id            | number    | Unique node identifier
+name          | string    | Registered name of the sensor
+battery       | number    | Sensor battery voltage (V)
+packet_lost   | number    | Number of radio packet lost by this sensor
 
 ## Gather sensors data
 
@@ -320,32 +320,35 @@ This endpoint returns the data collected by the sensors. You can specify a senso
 `GET https://demo.watereen.com/api/data/<SENSOR_ID> - 200 OK`
 
 ### Response Parameters - Array
-Parameter | Type | Description
---------- | ---- | -----------
-node_id | number | Unique node identifier identifying the source of these measurements
-date | date | Measurements date in ISO 8601 format
-packet_informations | object | Contains all radio-specific informations
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rssi | number | Received Signal Strength Indication
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;snr | number | Signal-to-Noise Ratio
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packet_loss | number | Packet(s) lost before this one
-measurements | array | Contains the value measured by each physical sensor
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sensor_identifier | number | [Physical sensor identifier]("#physical_sensor_identifier")
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value | number | Value measured
+Parameter                                             | Type        | Description
+----------------------------------------------------- | ----------- | -----------
+node_id                                               | number      | Unique node identifier identifying the source of these measurements
+date                                                  | date        | Measurements date in ISO 8601 format
+packet_informations                                   | object      | Contains all radio-specific informations
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rssi              | number      | Received Signal Strength Indication
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;snr               | number      | Signal-to-Noise Ratio
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packet_loss       | number      | Packet(s) lost before this one
+measurements                                          | array       | Contains the value measured by each physical sensor
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sensor_identifier | number      | [Physical sensor identifier]("#physical_sensor_identifier")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value             | number      | Value measured
 
 ### URL Parameters
-Parameter | Default | Description
---------- | ------- | -----------
-SENSOR_ID - Optional | None | Set a specific node identifier
+Parameter             | Default   | Description
+--------------------- | --------- | -----------
+SENSOR_ID - Optional  | None      | Set a specific node identifier
 
 ### Query Parameters
-Parameter | Default | Description
---------- | ------- | -----------
-date[gt] | Now - 24 Hours | Only data received after this date are returned (ISO 8601)
-date[lt] | Now | Only data received before this date are returned (ISO 8601)
+Parameter   | Default           | Description
+----------- | ----------------- | -----------
+date[gt]    | Now - 24 Hours    | Only data received after this date are returned (ISO 8601)
+date[lt]    | Now               | Only data received before this date are returned (ISO 8601)
 
 # Physical Sensor Identifier
-A node supports various and multiple soil sensors which are identified by a number. For simplicity, the battery level is denoted as a sensor and is send once a day by each sensor.
+A node supports various and multiple soil sensors which are identified by a number as shown in the table below. For simplicity, the battery level is denoted as a sensor and is send once a day by each sensor. However, please notice that the battery field may not be populated on this demonstration API.
 
-<aside class="notice">
-The battery field may not be populated on this demonstration API
-<aside>
+Sensor type     | Sensor Identifier
+--------------- | -----------------
+Temperature     | 0
+Soil moisture   | 1
+Salinity        | 2
+Battery         | 7
