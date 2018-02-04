@@ -9,6 +9,7 @@ toc_footers:
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
 
 includes:
+  - sensor_identifiers
   - errors
 
 search: true
@@ -329,7 +330,7 @@ packet_informations                                   | object      | Contains a
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;snr               | number      | Signal-to-Noise Ratio
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packet_loss       | number      | Packet(s) lost before this one
 measurements                                          | array       | Contains the value measured by each physical sensor
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sensor_identifier | number      | [Physical sensor identifier]("#physical_sensor_identifier")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sensor_identifier | number      | [Physical sensor identifiers]("#physical_sensor_identifiers")
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value             | number      | Value measured
 
 ### URL Parameters
@@ -342,13 +343,3 @@ Parameter   | Default           | Description
 ----------- | ----------------- | -----------
 date[gt]    | Now - 24 Hours    | Only data received after this date are returned (ISO 8601)
 date[lt]    | Now               | Only data received before this date are returned (ISO 8601)
-
-# Physical Sensor Identifier
-A node supports various and multiple soil sensors which are identified by a number as shown in the table below. For simplicity, the battery level is denoted as a sensor and is send once a day by each sensor. However, please notice that the battery field may not be populated on this demonstration API.
-
-Sensor type     | Sensor Identifier
---------------- | -----------------
-Temperature     | 0
-Soil moisture   | 1
-Salinity        | 2
-Battery         | 7
