@@ -303,11 +303,11 @@ packet_lost | number | Number of radio packet lost by this sensor
 ]
 ```
 
-This endpoint returns the data collected by the sensors. You can specify a sensor id as well as a date range. By default, it will return every date received from now and the last dat (H-24).
+This endpoint returns the data collected by the sensors. You can specify a sensor id as well as a date range. By default, it will return every sensor measurements received between now and the last day (H-24).
 
 ### HTTP Request
 
-`GET https://demo.watereen.com/api/data/<ID> - 200 OK`
+`GET https://demo.watereen.com/api/data/<SENSOR_ID> - 200 OK`
 
 ### Response Parameters - Array
 Parameter | Type | Description
@@ -315,9 +315,20 @@ Parameter | Type | Description
 node_id | number | Unique sensor identifier which send these measurements
 date | date | Measurements date in ISO 8601 format
 packet_informations | object | Contains all radio-specific informations
-&nbsp;&nbsp;&nbsp;&nbsp;rssi | &nbsp;&nbsp;&nbsp;&nbsp;number | &nbsp;&nbsp;&nbsp;&nbsp;Received Signal Strength Indication
-&nbsp;&nbsp;&nbsp;&nbsp;snr | &nbsp;&nbsp;&nbsp;&nbsp;number | &nbsp;&nbsp;&nbsp;&nbsp;Signal-to-Noise Ratio
-&nbsp;&nbsp;&nbsp;&nbsp;packet_loss | &nbsp;&nbsp;&nbsp;&nbsp;number | &nbsp;&nbsp;&nbsp;&nbsp;Packet(s) lost before this one
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rssi | number | Received Signal Strength Indication
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;snr | number | Signal-to-Noise Ratio
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packet_loss | number | Packet(s) lost before this one
 measurements | array | Contains the value measured by each physical sensor
-&nbsp;&nbsp;&nbsp;&nbsp;sensor_identifier | &nbsp;&nbsp;&nbsp;&nbsp;number | &nbsp;&nbsp;&nbsp;&nbsp;Physical sensor identifier
-&nbsp;&nbsp;&nbsp;&nbsp;value | &nbsp;&nbsp;&nbsp;&nbsp;number | &nbsp;&nbsp;&nbsp;&nbsp;Value measured
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sensor_identifier | number | Physical sensor identifier
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value | number | Value measured
+
+### URL Parameters
+Parameter | Default | Description
+--------- | ------- | -----------
+SENSOR_ID | None | Set a specific sensor identifier
+
+### Query Parameters
+Parameter | Default | Description
+--------- | ------- | -----------
+date[gt] | Now - 24 Hours | Only data received after this date are returned (ISO 8601)
+date[lt] | Now | Only data received before this date are returned (ISO 8601)
