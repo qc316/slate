@@ -20,7 +20,7 @@ search: true
 Welcome to the Watereen API documentation page ! You can use our API to access Watereen gateway API endpoints, which can get information on the network status and all the sensors related data.
 You can view the Curl code example related to each endpoint in the dark area to the right, you just have to copy-paste the command in a bash terminal to test it.
 
-Please free to contact us for any information you may need by sending us an [email](mailto:quentin@watereen.com)
+Please free to contact us for any information you may need by sending us an [email](mailto:quentin@watereen.com).
 
 # Authentication
 
@@ -37,7 +37,7 @@ curl "https://demo.watereen.com/api/endpoint" \
 The Watereen gateway API uses JWT (JSON Web Token) to allow access to the API. To get a JWT, you first need to login with your credentials as explained in the following subsection.
 If you don't have a Watereen account, you can request one for testing purposes by contacting us.
 
-Once you are logged in and for each subsequent API request, you need to include the JWT in a header that looks like the following:
+Once you are logged in and for each subsequent API request, you need to include the JWT in a header that looks like the following:<br/>
 `Authorization: Bearer mytoken`
 
 <aside class="notice">
